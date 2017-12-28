@@ -25,7 +25,7 @@
   "main": "build/cjs/index.js",
   "module": "src/index.js",
   "scripts": {
-    "build": "babel src --plugins transform-es2015-modules-commonjs --out-dir build/cjs",
+    "build": "babel src --out-dir build/cjs",
     "clean": "rm -r build || true",
     "lint": "eslint src",
     "pretest": "npm run lint",
@@ -48,7 +48,7 @@
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
-    "babel-plugin-transform-es2015-modules-commonjs": "^6.26.0",
+    "babel-preset-env": "^1.6.1",
     "eslint": "^4.8.0",
     "eslint-config-standard": "^10.2.1",
     "eslint-plugin-import": "^2.7.0",

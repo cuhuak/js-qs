@@ -10,13 +10,13 @@ var _stringify2 = _interopRequireDefault(_stringify);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-(0, _tape2.default)('stringify', t => {
+(0, _tape2.default)('stringify', function (t) {
   t.equal((0, _stringify2.default)({}), '', 'empty object results in empty string');
   t.equal((0, _stringify2.default)({ foo: 'bar' }), 'foo=bar', 'one pair');
   t.equal((0, _stringify2.default)({ foo: 'bar', baz: 'qux' }), 'baz=qux&foo=bar', 'multiple pairs - keys are sorted');
   t.equal((0, _stringify2.default)({ 'f*o': 'bar' }), 'f%2Ao=bar', 'encodes keys');
-  t.equal((0, _stringify2.default)({ 'f*o': 'bar', baz: 'q!x' }), 'baz=q%21x&f%2Ao=bar', 'encodes values');(() => {
-    const result = (0, _stringify2.default)({ a: { foo: 'bar' } });
+  t.equal((0, _stringify2.default)({ 'f*o': 'bar', baz: 'q!x' }), 'baz=q%21x&f%2Ao=bar', 'encodes values');(function () {
+    var result = (0, _stringify2.default)({ a: { foo: 'bar' } });
     t.equal(result, 'a=%7B%22foo%22%3A%22bar%22%7D', 'stringifies object value');
     t.deepEqual(JSON.parse(decodeURIComponent(result.slice(2))), { foo: 'bar' }, 'stringifies object value');
   })();
@@ -44,12 +44,12 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
   t.end();
 });
 
-(0, _tape2.default)('stringify - values are arrays', t => {
+(0, _tape2.default)('stringify - values are arrays', function (t) {
   t.equal((0, _stringify2.default)({ foo: ['a', 'b', 'c'] }, { arrayFormat: 'duplicate' }), 'foo=a&foo=b&foo=c', 'arrayFormat: \'duplicate\' - arrays as duplicate keys');
   t.equal((0, _stringify2.default)({ foo: ['a', 'b', 'c'] }), 'foo=a&foo=b&foo=c', 'arrayFormat: \'duplicate\' - is default');
   t.equal((0, _stringify2.default)({ foo: ['a', 'b', 'c'] }, { arrayFormat: 'bracket' }), 'foo[]=a&foo[]=b&foo[]=c', 'arrayFormat: \'bracket\' - foo[]=value');
-  t.equal((0, _stringify2.default)({ foo: ['a', 'b', 'c'] }, { arrayFormat: 'index' }), 'foo[0]=a&foo[1]=b&foo[2]=c', 'arrayFormat: \'index\' - foo[0]=value');(() => {
-    const result = (0, _stringify2.default)({ a: ['a', 'b', 'c'] }, { arrayFormat: 'json' });
+  t.equal((0, _stringify2.default)({ foo: ['a', 'b', 'c'] }, { arrayFormat: 'index' }), 'foo[0]=a&foo[1]=b&foo[2]=c', 'arrayFormat: \'index\' - foo[0]=value');(function () {
+    var result = (0, _stringify2.default)({ a: ['a', 'b', 'c'] }, { arrayFormat: 'json' });
     t.deepEqual(JSON.parse(decodeURIComponent(result.slice(2))), ['a', 'b', 'c'], 'arrayFormat: \'json\' - foo=%5B%22a%22%2C%22b%22%2C%22c%22%5D');
   })();
   t.equal((0, _stringify2.default)({ foo: ['a', 'b', 'c'] }, { arrayFormat: { delimiter: ',' } }), 'foo=a,b,c', 'arrayFormat: {delimiter: \',\'} - foo=a,b,c');

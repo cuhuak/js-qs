@@ -3,12 +3,18 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-const regex = /(.*)(\[\d*])$/;
+var regex = /(.*)(\[\d*])$/;
 // group - optional any amount of anything
 // group - ends with [] that can optionally contain any amount of digits
 
-const hasBracket = v => regex.test(v);
-const stripBracket = string => string.replace(regex, (_, key) => key);
+var hasBracket = function hasBracket(v) {
+  return regex.test(v);
+};
+var stripBracket = function stripBracket(string) {
+  return string.replace(regex, function (_, key) {
+    return key;
+  });
+};
 
 exports.hasBracket = hasBracket;
 exports.stripBracket = stripBracket;

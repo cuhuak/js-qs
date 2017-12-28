@@ -8,16 +8,16 @@ var _brackets = require('./brackets');
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-(0, _tape2.default)('brackets.hasBracket', t => {
-  ;['[]', 'foo[]', '[][]', '[0]', '[][0]', '[34][0]', '[][2348]', '][]', '[[]', '.[]', '[[0]'].forEach(v => {
+(0, _tape2.default)('brackets.hasBracket', function (t) {
+  ;['[]', 'foo[]', '[][]', '[0]', '[][0]', '[34][0]', '[][2348]', '][]', '[[]', '.[]', '[[0]'].forEach(function (v) {
     t.true((0, _brackets.hasBracket)(v), v);
-  });['foo', '[][', '.][', '[]]', '[0]]', '[-]', '[a]'].forEach(v => {
+  });['foo', '[][', '.][', '[]]', '[0]]', '[-]', '[a]'].forEach(function (v) {
     t.false((0, _brackets.hasBracket)(v), v);
   });
   t.end();
 });
 
-(0, _tape2.default)('brackets.stripBracket', t => {
+(0, _tape2.default)('brackets.stripBracket', function (t) {
   t.equal((0, _brackets.stripBracket)('foo[]'), 'foo');
   t.equal((0, _brackets.stripBracket)('foo[0]'), 'foo');
   t.equal((0, _brackets.stripBracket)('foo[1209]'), 'foo');

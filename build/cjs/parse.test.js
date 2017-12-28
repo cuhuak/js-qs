@@ -10,7 +10,7 @@ var _parse2 = _interopRequireDefault(_parse);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-(0, _tape2.default)('parse', t => {
+(0, _tape2.default)('parse', function (t) {
   try {
     (0, _parse2.default)(['foo']);
     t.fail('should throw when passed a non string');
@@ -33,7 +33,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
   t.end();
 });
 
-(0, _tape2.default)('parse - wonky input', t => {
+(0, _tape2.default)('parse - wonky input', function (t) {
   t.deepEqual((0, _parse2.default)('=value'), { '': 'value' }, "starts with = => {'': 'value'}");
   t.deepEqual((0, _parse2.default)('==='), { '': '==' }, "just equal signs === => {'': '=='}");
   t.deepEqual((0, _parse2.default)('==&=='), { '': ['=', '='] }, "==&== => {'': ['=', '=']}");
@@ -41,7 +41,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
   t.end();
 });
 
-(0, _tape2.default)('parse - {plus}', t => {
+(0, _tape2.default)('parse - {plus}', function (t) {
   t.deepEqual((0, _parse2.default)('f+o=a+b%2B+c', { plus: true }), { 'f o': 'a b+ c' }, 'decodes + as space when {plus: true}');
   t.deepEqual((0, _parse2.default)('f+o=a+b%2B+c', { plus: false }), { 'f+o': 'a+b++c' }, 'doesn\'t touch + space when {plus: false}');
   t.deepEqual((0, _parse2.default)('f+o=a+b%2B+c'), { 'f o': 'a b+ c' }, 'decodes + as space by default, {plus: true} is default');
@@ -55,7 +55,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
   t.end();
 });
 
-(0, _tape2.default)('parse - array values', t => {
+(0, _tape2.default)('parse - array values', function (t) {
   t.deepEqual((0, _parse2.default)('foo=a&foo=b&foo=c'), { foo: ['a', 'b', 'c'] }, 'parses duplicate keys as array');
   t.deepEqual((0, _parse2.default)('foo[]=a&foo[]=b&foo[]=c'), { foo: ['a', 'b', 'c'] }, 'parses bracket syntax as array');
   t.deepEqual((0, _parse2.default)('foo[]=a&bar=b'), { foo: ['a'], bar: 'b' }, 'parses single item with bracket as array');
@@ -71,7 +71,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
   t.end();
 });
 
-(0, _tape2.default)('parse - json string values', t => {
+(0, _tape2.default)('parse - json string values', function (t) {
   t.deepEqual((0, _parse2.default)('a=%7B%22foo%22%3A%22bar%22%7D', { json: true }), { a: { foo: 'bar' } }, 'parses JSON string to object');
   t.deepEqual((0, _parse2.default)('a=%7B%22foo%22%3A%22bar%22%7D'), { a: { foo: 'bar' } }, 'parses JSON string values by default {json: true}');
   t.deepEqual((0, _parse2.default)('a=%7B%22foo%22%3A%22bar%22%7D', { json: false }), { a: '{"foo":"bar"}' }, 'doesn\'t parse JSON string values when {json: false}');
